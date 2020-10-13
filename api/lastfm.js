@@ -1,6 +1,7 @@
 const axios = require('axios')
 const vash = require('vash')
 const fs = require('fs')
+const path = require('path')
 
 const USERNAME = process.env.LASTFM_USERNAME
 const API_KEY = process.env.LASTFM_API_KEY
@@ -24,7 +25,7 @@ const nowPlaying = function() {
     })
 }
 
-const tpl = vash.compile(fs.readFileSync(join(__dirname, 'templates/nowplaying.vash'), 'utf8'))
+const tpl = vash.compile(fs.readFileSync(path.join(__dirname, 'templates/nowplaying.vash'), 'utf8'))
 
 module.exports = async (req, res) => {
   nowPlaying()
