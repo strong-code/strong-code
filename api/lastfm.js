@@ -33,7 +33,7 @@ const nowPlaying = function() {
 }
 
 const tpl = vash.compile(fs.readFileSync(path.join(__dirname, 'templates/nowplaying.vash'), 'utf8'))
-nowPlaying()
+
 module.exports = async (req, res) => {
   nowPlaying()
     .then(data => {
