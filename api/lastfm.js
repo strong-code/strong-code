@@ -8,16 +8,23 @@ const API_KEY = process.env.LASTFM_API_KEY
 const API_URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${USERNAME}&api_key=${API_KEY}&format=json`
 
 const nowPlaying = function() {
-  return axios.get(API_URL)
+  const info = {}
+  axios.get(API_URL)
     .then(res => {
       const lastPlayed = res.data.recenttracks.track[0]
-      const info = {
-        artist: lastPlayed.artist['#text'],
-        album: lastPlayed.album['#text'],
-        image: lastPlayed.image[2]['#text'], // this is "large" album art, can be 0-3
-        name: lastPlayed.name,
-        date: lastPlayed.date['#text']
-      }
+      info.artist = lastPlayed.artist['#text'],
+      info.album = lastPlayed.album['#text'],
+      info.image = lastPlayed.image[2]['#text'], // this is "large" album art, can be 0-3
+      info.name = lastPlayed.name,
+      info.date = lastPlayed.date['#text']
+      return info
+    })
+    .then(info => {
+      return axios.get(info.image, {responseType: 'arraybuffer'})
+    })
+    .then(buff => {
+      let b64 = Buffer.from(buff.data).toString('base64')
+      info.image = b64
       return info
     })
     .catch(err => {
@@ -26,7 +33,7 @@ const nowPlaying = function() {
 }
 
 const tpl = vash.compile(fs.readFileSync(path.join(__dirname, 'templates/nowplaying.vash'), 'utf8'))
-
+nowPlaying()
 module.exports = async (req, res) => {
   nowPlaying()
     .then(data => {
