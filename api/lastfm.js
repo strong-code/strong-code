@@ -30,15 +30,22 @@ const tpl = vash.compile(fs.readFileSync('templates/nowplaying.vash', 'utf8'))
 
 //const server = http.createServer((req, res) => {
 module.exports = async (req, res) => {
-  nowPlaying().then(data => {
-    res.send(tpl({
-      image: data.image,
-      name: data.name,
-      artist: data.artist,
-      album: data.album,
-      date: data.date
-    }))
+  res.send(tpl({
+    image: 'https://lastfm.freetls.fastly.net/i/u/174s/3fa1a8aaa613d1f314a69fd1766e51c6.jpg',
+    album: 'Solace',
+    artist: 'RÜFÜS DU SOL',
+    name: 'Underwater'
   })
+  /*nowPlaying()
+    .then(data => {
+      res.send(tpl({
+        image: data.image,
+        name: data.name,
+        artist: data.artist,
+        album: data.album,
+        date: data.date
+      }))
+    })*/
 })
 
 /*const port = process.env.PORT
