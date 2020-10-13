@@ -28,11 +28,11 @@ const nowPlaying = function() {
 
 const tpl = vash.compile(fs.readFileSync('templates/nowplaying.vash', 'utf8'))
 
-const server = http.createServer((req, res) => {
+//const server = http.createServer((req, res) => {
+module.exports = (req, res) => {
   nowPlaying().then(data => {
-    res.statusCode = 200
-    res.setHeader('Content-Type', 'text/html')
-    res.end(tpl({
+    res.status = 200
+    res.send(tpl({
       image: data.image,
       name: data.name,
       artist: data.artist,
@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
   })
 })
 
-const port = process.env.PORT
+/*const port = process.env.PORT
 server.listen(port, () => {
   console.log(`Server listening on port ${port}`)
-})
+})*/
