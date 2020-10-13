@@ -30,6 +30,7 @@ const tpl = vash.compile(fs.readFileSync(path.join(__dirname, 'templates/nowplay
 module.exports = async (req, res) => {
   nowPlaying()
     .then(data => {
+      res.setHeader('Content-Type', 'image/svg+xml')
       res.send(tpl({
         image: data.image,
         name: data.name,
