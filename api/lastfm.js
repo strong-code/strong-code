@@ -29,7 +29,7 @@ const nowPlaying = function() {
 const tpl = vash.compile(fs.readFileSync('templates/nowplaying.vash', 'utf8'))
 
 //const server = http.createServer((req, res) => {
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   nowPlaying().then(data => {
     res.status = 200
     res.send(tpl({
