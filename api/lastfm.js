@@ -37,4 +37,4 @@ module.exports = async (req, res) => {
         date: data.date
       }))
     })
-})
+}
