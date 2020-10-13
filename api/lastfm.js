@@ -9,7 +9,7 @@ const API_URL = `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&
 
 const nowPlaying = function() {
   const info = {}
-  axios.get(API_URL)
+  return axios.get(API_URL)
     .then(res => {
       const lastPlayed = res.data.recenttracks.track[0]
       info.artist = lastPlayed.artist['#text'],
