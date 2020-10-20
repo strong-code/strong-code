@@ -16,7 +16,6 @@ const nowPlaying = function() {
       info.album = lastPlayed.album['#text'],
       info.image = lastPlayed.image[2]['#text'], // this is "large" album art, can be 0-3
       info.name = lastPlayed.name,
-      info.date = lastPlayed.date['#text']
       return info
     })
     .then(info => {
